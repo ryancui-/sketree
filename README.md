@@ -2,20 +2,15 @@
 
 > Sketchpad to generate tree json data.
 
-## Build Setup
+## Overview
 
-``` bash
-# install dependencies
-npm install
+You can draw a tree in the left, then get a JSON tree model data in the right.
 
-# serve with hot reload at localhost:8080
-npm run dev
+## Usage
 
-# build for production with minification
-npm run build
+https://ryancui-.github.io/sketree/dist/
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
+Double-click a node to new a child.
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Select a node and push DELETE/BACKSPACE to remove it.
+
