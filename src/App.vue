@@ -1,28 +1,54 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <div class="tree-pad">
+      <tree-pad></tree-pad>
+    </div>
+    <div class="tree-json">
+
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+  import TreePad from './components/TreePad';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-  },
-};
+  export default {
+    name: 'App',
+    components: {
+      TreePad,
+    }
+  };
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+  }
+
+  #app {
+    display: flex;
+    height: 100%;
+  }
+
+  .tree-pad, .tree-json {
+    border: 1px dashed rgba(0, 0, 0, 0.4);
+    margin: 10px;
+  }
+
+  .tree-pad {
+    flex-basis: 700px;
+  }
+
+  .tree-json {
+    flex-grow: 1;
+  }
+
 </style>
