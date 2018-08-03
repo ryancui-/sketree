@@ -3,7 +3,9 @@
 </template>
 
 <script>
-  const RADIUS = 30;
+  import { mapState } from 'vuex';
+
+  const RADIUS = 20;
   const WIDTH = 700;
   const HEIGHT = 700;
 
@@ -12,25 +14,29 @@
     data() {
       return {
         canvas: null,
-        root: null,
-        nodes: [],
         selectedNode: null
       };
     },
     mounted() {
-      this.canvas = new fabric.Canvas('pad');
-      this.canvas.setDimensions({ width: WIDTH, height: HEIGHT });
-      this.canvas.selection = false;
-
-      document.documentElement.addEventListener('keydown', (e) => {
-        if (this.selectedNode && (e.keyCode === 46 || e.keyCode === 8)) {
-          this.removeTreeNode(this.selectedNode);
-        }
-      });
-
-      this.root = this.addTreeNode((WIDTH / 2) - (RADIUS / 2), 50);
+      this.init();
+    },
+    computed: {
+      ...mapState(['nodes'])
     },
     methods: {
+      init() {
+        this.canvas = new fabric.Canvas('pad');
+        this.canvas.setDimensions({ width: WIDTH, height: HEIGHT });
+        this.canvas.selection = false;
+
+        document.documentElement.addEventListener('keydown', (e) => {
+          if (this.selectedNode && (e.keyCode === 46 || e.keyCode === 8)) {
+            this.removeTreeNode(this.selectedNode);
+          }
+        });
+
+        this.addTreeNode((WIDTH / 2) - (RADIUS / 2), 50);
+      },
       /**
        * Add a new tree node as a child of parentNode
        * @param x
@@ -41,12 +47,14 @@
       addTreeNode(x, y, parentNode = null) {
         const circle = new fabric.Circle({
           radius: RADIUS,
-          fill: parentNode ? 'green' : 'red',
+          fill: parentNode ? '#fff' : '#bbecff',
           left: x,
           top: y,
           hasControls: false,
           hasRotatingPoint: false,
-          selectable: !!parentNode
+          selectable: !!parentNode,
+          stroke: '#666',
+          strokeWidth: 5
         });
         let line = null;
 
@@ -54,7 +62,7 @@
         if (parentNode !== null) {
           line = new fabric.Line([circle.getCenterPoint().x, circle.getCenterPoint().y,
             parentNode.circle.getCenterPoint().x, parentNode.circle.getCenterPoint().y], {
-            stroke: 'green',
+            stroke: '#000',
             strokeWidth: 3,
             selectable: false,
             hoverCursor: 'default'
@@ -94,14 +102,15 @@
 
         circle.on('mousedblclick', ({ target }) => {
           const node = target.get('node');
-          this.addTreeNode(target.getCenterPoint().x + 20, target.getCenterPoint().y + 80, node);
+          const children = this.nodes.filter(n => n.parent === node);
+          this.addTreeNode(target.getCenterPoint().x + (20 * children.length) + 1,
+            target.getCenterPoint().y + 80, node);
         });
 
         this.canvas.add(circle);
-
         const node = { circle, line, parent: parentNode };
         node.circle.set('node', node);
-        this.nodes.push(node);
+        this.$store.commit('addNode', node);
 
         return node;
       },
@@ -125,6 +134,7 @@
         if (node.line) {
           this.canvas.remove(node.line);
         }
+        this.$store.commit('removeNode', node);
       }
     }
   };
@@ -134,5 +144,6 @@
   .pad {
     display: block;
     background-color: rgba(0, 0, 0, 0.08);
+    border: 1px dashed rgba(0, 0, 0, 0.4);
   }
 </style>

@@ -39,7 +39,6 @@
   }
 
   .tree-pad, .tree-json {
-    border: 1px dashed rgba(0, 0, 0, 0.4);
     margin: 10px;
   }
 
