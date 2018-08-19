@@ -140,10 +140,12 @@
   };
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  @import 'common.less';
+
   .pad {
+    .box-wrapper;
     display: block;
     background-color: rgba(0, 0, 0, 0.08);
-    border: 1px dashed rgba(0, 0, 0, 0.4);
   }
 </style>

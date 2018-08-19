@@ -4,18 +4,19 @@
       <tree-pad></tree-pad>
     </div>
     <div class="tree-json">
-
+      <tree-display></tree-display>
     </div>
   </div>
 </template>
 
 <script>
   import TreePad from './components/TreePad';
+  import TreeDisplay from './components/TreeDisplay';
 
   export default {
     name: 'App',
     components: {
-      TreePad,
+      TreePad, TreeDisplay
     }
   };
 </script>

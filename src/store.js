@@ -1,7 +1,11 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 
+import TreeUtils from './utils/tree-util';
+
 Vue.use(Vuex);
+
+const treeUtils = new TreeUtils();
 
 const store = new Vuex.Store({
   state: {
@@ -20,8 +24,7 @@ const store = new Vuex.Store({
   },
   getters: {
     treeData(state) {
-      // TODO Generate tree JSON data
-      return state.nodes;
+      return treeUtils.buildTreeJson(state.nodes);
     }
   }
 });
