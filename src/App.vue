@@ -1,6 +1,14 @@
 <template>
   <div id="app">
     <div class="tree-pad">
+      <div>
+        <h2>使用说明</h2>
+        <p>1. 双击节点创建子节点</p>
+        <p>2. 选择节点后，按 Backspace/Delete 键删除节点（及其所有子节点）</p>
+      </div>
+      <div class="btn-panel">
+        <button @click="smoothTree">整理</button>
+      </div>
       <tree-pad></tree-pad>
     </div>
     <div class="tree-json">
@@ -17,6 +25,11 @@
     name: 'App',
     components: {
       TreePad, TreeDisplay
+    },
+    methods: {
+      smoothTree() {
+        console.log(123);
+      }
     }
   };
 </script>
